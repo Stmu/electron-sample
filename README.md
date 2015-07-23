@@ -107,3 +107,10 @@ start simple electron app
 ```bash
 npm start
 ```
+
+### Packager
+
+add to package.json script section
+```js
+  "pack": "electron-packager . sample-app --platform=win32 --arch=ia32,x64 --version=0.30.0 --out ..",
+```
