@@ -81,6 +81,8 @@ app.on('ready', function() {
 
 ```
 
+Add index.html file
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -101,8 +103,7 @@ app.on('ready', function() {
 </html>
 ```
 
-
-tart simple electron app
+start simple electron app
 ```bash
 npm start
 ```
