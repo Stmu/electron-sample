@@ -1,15 +1,5 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
-var remote = require('remote');
-var Menu = remote.require('menu');
-var MenuItem = remote.require('menu-item');
-
-var menu = new Menu();
-menu.append(new MenuItem({ label: 'MenuItem1', click: function() { console.log('item 1 clicked'); } }));
-menu.append(new MenuItem({ type: 'separator' }));
-menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
-
-menu.popup(remote.getCurrentWindow());
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -31,17 +21,13 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 500, height: 300});
-  mainWindow.addEventListener('contextmenu', function (e) {
-  e.preventDefault();
-  }, false);
+  mainWindow = new BrowserWindow({width: 800, height: 600});
 
   // and load the index.html of the app.
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
-  mainWindow.setProgressBar(0.5);
 
   // Open the devtools.
-  //mainWindow.openDevTools();
+  mainWindow.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -51,15 +37,3 @@ app.on('ready', function() {
     mainWindow = null;
   });
 });
-
-app.addRecentDocument('/Users/stefan/Desktop/work.type');
-app.setUserTasks([
-  {
-    program: process.execPath,
-    arguments: '--new-window',
-    iconPath: process.execPath,
-    iconIndex: 0,
-    title: 'New Window',
-    description: 'Create a new window'
-  }
-]);
