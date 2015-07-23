@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello World!</title>
 
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using io.js <script>document.write(process.version)</script>
-    and Electron <script>document.write(process.versions['electron'])</script>.
+<head>
+  <title>Hello World!</title>
+</head>
+
+<body>
+  <script>require('./menu.js')</script>
+
+  <h1>Sample App with Electron</h1>
+  We are using io.js
+  <script>
+    document.write(process.version)
+  </script>
+  and Electron
+  <script>
+    document.write(process.versions['electron'])
+  </script>.
+
   <input id="TextInput" type="text" />
 
-
-  <div id="holder" style="background-color='blue'">
+  <div id="holder" style="background-color:blue;color:white;">
     Drag your file here
   </div>
 
-<script>
+  <script>
+    var holder = document.getElementById('holder');
+    holder.ondragover = function() {
+      return false;
+    };
 
-  var holder = document.getElementById('holder');
-  holder.ondragover = function () {
-    return false;
-  };
+    holder.ondragleave = holder.ondragend = function() {
+      return false;
+    };
 
-  holder.ondragleave = holder.ondragend = function () {
-    return false;
-  };
+    holder.ondrop = function(e) {
+      e.preventDefault();
+      var file = e.dataTransfer.files[0];
+      console.log('File you dragged here is', file.path);
+      return false;
+    };
+  </script>
+</body>
 
-  holder.ondrop = function (e) {
-    e.preventDefault();
-    var file = e.dataTransfer.files[0];
-    console.log('File you dragged here is', file.path);
-    return false;
-  };
-
-</script>
-  </body>
 </html>
