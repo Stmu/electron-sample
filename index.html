@@ -25,6 +25,8 @@
   </div>
 
   <script>
+  var xlsx = require('node-xlsx');
+
     var holder = document.getElementById('holder');
     holder.ondragover = function() {
       return false;
@@ -37,6 +39,12 @@
     holder.ondrop = function(e) {
       e.preventDefault();
       var file = e.dataTransfer.files[0];
+
+      var obj = xlsx.parse(__dirname + file.path); // parses a file 
+
+//      var obj = xlsx.parse(fs.readFileSync(__dirname + '/myFile.xlsx')); // parses a buffer
+
+
       console.log('File you dragged here is', file.path);
       return false;
     };
