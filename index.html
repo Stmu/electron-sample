@@ -40,7 +40,7 @@
       e.preventDefault();
       var file = e.dataTransfer.files[0];
 
-      var obj = xlsx.parse(__dirname + file.path); // parses a file 
+      var obj = xlsx.parse(file.path); // parses a file
 
 //      var obj = xlsx.parse(fs.readFileSync(__dirname + '/myFile.xlsx')); // parses a buffer
 
