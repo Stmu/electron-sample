@@ -30,6 +30,13 @@ Add "helper" commands in package.json
 }
 ```
 
+execute with
+```bash
+npm start
+#npm run 'command'
+npm run pack
+```
+
 Add file main.js
 
 ```js
