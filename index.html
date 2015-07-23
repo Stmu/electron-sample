@@ -22,7 +22,12 @@
 
   <div id="holder" style="background-color:blue;color:white;">
     Drag your file here
+	<br/>
+	<br/>
+	<br/>
   </div>
+  
+  <label id="xslx-out"></label>
 
   <script>
   var xlsx = require('node-xlsx');
@@ -42,9 +47,23 @@
 
       var obj = xlsx.parse(file.path); // parses a file
 
-//      var obj = xlsx.parse(fs.readFileSync(__dirname + '/myFile.xlsx')); // parses a buffer
-
-
+	  var label = document.getElementById('xslx-out');
+	  var text = 'Content: ';
+	  
+	  for(sheetIdx in obj){
+		var sheet = obj[sheetIdx];
+		  for(rowIdx in sheet){
+			text += '\r\n';
+			var row = sheet[rowIdx];
+			for(colIdx in row){
+				text += '\r\n';
+				var col = row[colIdx];
+				text += col;
+			}
+		  }
+		}
+		label.innerHTML = text;
+		
       console.log('File you dragged here is', file.path);
       return false;
     };

@@ -11,8 +11,15 @@ var menu = Menu.buildFromTemplate([
                 click: function () {
                     console.log('clicked..');
                 }
-            }
-        ]
+            },
+        {
+      //type: 'checkbox',
+      label: 'XLSX',
+        click: function() {
+            console.log('clicked..');
+          }
+        }
+]
     }
 ]);
 
