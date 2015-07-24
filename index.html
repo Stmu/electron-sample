@@ -3,10 +3,15 @@
 
 <head>
   <title>Hello World!</title>
+  <link rel="stylesheet" href="cal-heatmap.css" />
+  <script type="text/javascript" src="node_modules/d3/d3.min.js"></script>
+  <script type="text/javascript" src="cal-heatmap.js"></script>
 </head>
 
 <body>
-  <script>require('./menu.js')</script>
+  <script>
+    require('./menu.js')
+  </script>
 
   <h1>Sample App with Electron</h1>
   We are using io.js
@@ -21,16 +26,16 @@
   <input id="TextInput" type="text" />
 
   <div id="holder" style="background-color:blue;color:white;">
-    Drag your file here
-	<br/>
-	<br/>
-	<br/>
+    Drag your xslx file here
+    <br/>
+    <br/>
+    <br/>
   </div>
-  
+
   <label id="xslx-out"></label>
 
   <script>
-  var xlsx = require('node-xlsx');
+    var xlsx = require('node-xlsx');
 
     var holder = document.getElementById('holder');
     holder.ondragover = function() {
@@ -47,27 +52,62 @@
 
       var obj = xlsx.parse(file.path); // parses a file
 
-	  var label = document.getElementById('xslx-out');
-	  var text = 'Content: ';
-	  
-	  for(sheetIdx in obj){
-		var sheet = obj[sheetIdx];
-		  for(rowIdx in sheet){
-			text += '\r\n';
-			var row = sheet[rowIdx];
-			for(colIdx in row){
-				text += '\r\n';
-				var col = row[colIdx];
-				text += col;
-			}
-		  }
-		}
-		label.innerHTML = text;
-		
+      var label = document.getElementById('xslx-out');
+      var text = 'Content: ';
+
+      for (sheetIdx in obj) {
+        var sheet = obj[sheetIdx];
+        for (rowIdx in sheet) {
+          text += '\r\n';
+          var row = sheet[rowIdx];
+          for (colIdx in row) {
+            text += '\r\n';
+            var col = row[colIdx];
+            text += col;
+          }
+        }
+      }
+      label.innerHTML = text;
+
       console.log('File you dragged here is', file.path);
       return false;
     };
   </script>
+
+<div id="cal-heatmap"></div>    <script type="text/javascript">
+      var cal = new CalHeatMap();
+
+      cal.init({
+  //  itemSelector: "#cal-heatmap",
+   domain: "month",
+   subDomain: "day",
+   weekStartOnMonday: true,
+   verticalOrientation: false,
+   data: "http://ise-lx01.ise.de:3000/daysoff",
+   start: new Date(2015, 0),
+   subDomainTextFormat: function(date, value) {
+                   return value;
+         },
+   cellSize: 25,
+   legend: [0, 1, 2, 3, 4, 5, 6, 7, 8,9,10],
+   legendColors: ["#efefef","darkred"]
+});
+
+      // cal.init({
+      //   //  itemSelector: "#cal-heatmap",
+      //    domain: "month",
+      //    subDomain: "day",
+      //    //data: "http://cal-heatmap.com/datas-years.json",
+      //    data: "http://ise-lx01.ise.de:3000/daysoff",
+      //    start: new Date(2015, 0),
+      //    subDomainTextFormat: function(date, value) {
+		  //        return value;
+	    //    },
+      //    cellSize: 25,
+      //    //legend: [1900, 2000, 2100, 2200],
+      //    legendColors: ["#efefef","darkred"]
+      // });
+    </script>
 </body>
 
 </html>
